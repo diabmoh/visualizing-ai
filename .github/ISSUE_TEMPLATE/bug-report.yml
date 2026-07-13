@@ -1,0 +1,31 @@
+name: Bug report
+description: Report a visual, interaction, accessibility, or content problem
+title: "Bug: "
+labels: [bug]
+body:
+  - type: input
+    id: visualization
+    attributes:
+      label: Visualization and chapter
+      placeholder: llm-training / loss
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and device
+      placeholder: Safari 18 on iPhone
+    validations:
+      required: true

@@ -1,0 +1,44 @@
+name: Concept proposal
+description: Propose a new interactive AI or machine learning explanation
+title: "Concept: "
+labels: [concept]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Learner question
+      description: What should someone understand after using this visualization?
+    validations:
+      required: true
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Primary audience
+      options:
+        - General public
+        - Students
+        - Technical practitioners
+        - Layered audience
+    validations:
+      required: true
+  - type: textarea
+    id: metaphor
+    attributes:
+      label: Visual metaphor and interaction
+      description: Describe the dominant visual and what the learner does.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Primary sources
+      description: Link papers or authoritative documentation.
+    validations:
+      required: true
+  - type: textarea
+    id: simplifications
+    attributes:
+      label: Simplifications and caveats
+      description: What could this explanation accidentally imply if handled poorly?
+    validations:
+      required: true

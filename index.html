@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visualizing AI</title>
+  <meta name="description" content="Interactive visual stories that make machine learning and AI concepts easy to see.">
+  <meta name="theme-color" content="#161819">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23e95e3f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23171918'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f1f2ee;
+      --surface: #e7e9e4;
+      --ink: #171918;
+      --muted: #5f655f;
+      --line: #c9cdc6;
+      --accent: #e95e3f;
+      --accent-ink: #18110f;
+      --display: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121514;
+        --surface: #1a1e1c;
+        --ink: #ecefe9;
+        --muted: #a5aca5;
+        --line: #343a36;
+        --accent: #ff6748;
+        --accent-ink: #1a0d09;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--display);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .nav {
+      min-height: 68px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 clamp(20px, 4vw, 64px);
+    }
+    .brand { font-weight: 700; letter-spacing: -0.035em; text-decoration: none; }
+    .nav-meta { color: var(--muted); font: 12px/1.2 var(--mono); }
+    .hero {
+      min-height: calc(100dvh - 68px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+      align-items: center;
+      gap: clamp(32px, 8vw, 130px);
+      padding: clamp(56px, 8vw, 112px) clamp(20px, 6vw, 96px);
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .eyebrow { margin: 0 0 24px; color: var(--accent); font: 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 820px; font-size: clamp(56px, 9vw, 144px); line-height: .84; letter-spacing: -.075em; font-weight: 650; }
+    .lede { max-width: 520px; margin: 34px 0 0; color: var(--muted); font-size: clamp(18px, 2vw, 24px); line-height: 1.45; }
+    .field {
+      aspect-ratio: 1;
+      position: relative;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 12.5% 12.5%;
+    }
+    .field::before, .field::after {
+      content: "";
+      position: absolute;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      inset: 13%;
+      animation: orbit 18s linear infinite;
+    }
+    .field::after { inset: 30%; animation-direction: reverse; animation-duration: 11s; }
+    .core { position: absolute; inset: 43%; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 18px color-mix(in srgb, var(--accent) 18%, transparent); }
+    .token { position: absolute; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); font: 11px/1 var(--mono); }
+    .t1 { left: 8%; top: 17%; } .t2 { right: 7%; top: 28%; } .t3 { left: 14%; bottom: 15%; } .t4 { right: 13%; bottom: 11%; }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    .catalog { border-top: 1px solid var(--line); padding: clamp(70px, 10vw, 150px) clamp(20px, 6vw, 96px); }
+    .catalog-inner { max-width: 1450px; margin: 0 auto; }
+    .catalog h2 { margin: 0 0 42px; max-width: 760px; font-size: clamp(38px, 5vw, 76px); line-height: .95; letter-spacing: -.055em; }
+    .exhibit {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      min-height: 430px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      transition: background .25s ease;
+    }
+    .exhibit:hover { background: var(--surface); }
+    .exhibit:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .exhibit-copy { padding: clamp(32px, 5vw, 72px) clamp(0px, 4vw, 64px); display: flex; flex-direction: column; justify-content: space-between; }
+    .exhibit-copy h3 { margin: 0; max-width: 760px; font-size: clamp(44px, 7vw, 104px); line-height: .9; letter-spacing: -.065em; }
+    .exhibit-copy p { max-width: 550px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+    .open { color: var(--accent); font: 13px/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+    .preview { position: relative; border-left: 1px solid var(--line); overflow: hidden; min-height: 360px; }
+    .bar { position: absolute; left: 12%; height: 2px; background: var(--ink); transform-origin: left; }
+    .bar:nth-child(1) { top: 22%; width: 70%; } .bar:nth-child(2) { top: 37%; width: 45%; }
+    .bar:nth-child(3) { top: 52%; width: 82%; background: var(--accent); } .bar:nth-child(4) { top: 67%; width: 31%; }
+    .bar:nth-child(5) { top: 82%; width: 58%; }
+    .preview-label { position: absolute; right: 10%; top: 48%; color: var(--accent); font: 12px/1 var(--mono); }
+    footer { padding: 38px clamp(20px, 6vw, 96px); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 13px; }
+    footer a { text-underline-offset: 4px; }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+      .field { max-width: 560px; width: 100%; }
+      .exhibit { grid-template-columns: 1fr; }
+      .preview { border-left: 0; border-top: 1px solid var(--line); }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="./">Visualizing AI</a>
+    <span class="nav-meta">Open learning library</span>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Interactive science stories</p>
+        <h1 id="hero-title">See how intelligence is built.</h1>
+        <p class="lede">Complex AI ideas, transformed into visual experiences you can follow, touch, and understand.</p>
+      </div>
+      <div class="field" aria-hidden="true">
+        <span class="core"></span>
+        <span class="token t1">data</span><span class="token t2">loss</span>
+        <span class="token t3">gradient</span><span class="token t4">learning</span>
+      </div>
+    </section>
+    <section class="catalog" aria-labelledby="catalog-title">
+      <div class="catalog-inner">
+        <h2 id="catalog-title">Enter the first exhibit.</h2>
+        <a class="exhibit" href="visualizations/llm-training/">
+          <div class="exhibit-copy">
+            <div>
+              <p class="eyebrow">Language models</p>
+              <h3>How an LLM learns</h3>
+              <p>Follow text as it becomes tokens, predictions, gradients, and a model that can respond.</p>
+            </div>
+            <span class="open">Open visual story ↗</span>
+          </div>
+          <div class="preview" aria-hidden="true">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            <span class="preview-label">next token</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+  <footer><span>Built for curious minds.</span><a href="https://github.com/diabmoh/visualizing-ai">View source on GitHub</a></footer>
+</body>
+</html>
