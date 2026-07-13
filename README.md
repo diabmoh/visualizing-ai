@@ -4,9 +4,11 @@ Interactive, single-file visual stories that make machine learning and AI concep
 
 ## Explore
 
-### [How an LLM learns](visualizations/llm-training/)
+### [How an LLM learns](https://diabmoh.github.io/visualizing-ai/visualizations/llm-training/)
 
 Follow a common LLM training lifecycle from raw text and tokens through prediction, loss, parameter updates, post-training, and evaluation.
+
+[Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/llm-training/)
 
 ## Why this project exists
 
