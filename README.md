@@ -16,6 +16,12 @@ Follow a question through semantic retrieval, context assembly, cited generation
 
 [Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/rag/)
 
+### [How embeddings map meaning](https://diabmoh.github.io/visualizing-ai/visualizations/embeddings/)
+
+Watch text become coordinates, explore semantic neighborhoods, and learn why vector similarity is useful without being a test of truth.
+
+[Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/embeddings/)
+
 ## Why this project exists
 
 AI is often explained with either vague metaphors or dense mathematics. Visualizing AI aims for a useful middle: scientifically grounded explanations that people can understand by watching a system change.
