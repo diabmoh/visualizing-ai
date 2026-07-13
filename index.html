@@ -102,6 +102,7 @@
       transition: background .25s ease;
     }
     .exhibit:hover { background: var(--surface); }
+    .exhibit + .exhibit { border-top: 0; }
     .exhibit:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
     .exhibit-copy { padding: clamp(32px, 5vw, 72px) clamp(0px, 4vw, 64px); display: flex; flex-direction: column; justify-content: space-between; }
     .exhibit-copy h3 { margin: 0; max-width: 760px; font-size: clamp(44px, 7vw, 104px); line-height: .9; letter-spacing: -.065em; }
@@ -113,6 +114,13 @@
     .bar:nth-child(3) { top: 52%; width: 82%; background: var(--accent); } .bar:nth-child(4) { top: 67%; width: 31%; }
     .bar:nth-child(5) { top: 82%; width: 58%; }
     .preview-label { position: absolute; right: 10%; top: 48%; color: var(--accent); font: 12px/1 var(--mono); }
+    .rag-preview .fragment { position: absolute; width: 31%; min-height: 58px; border: 1px solid var(--line); background: var(--bg); padding: 9px; font: 10px/1.35 var(--mono); }
+    .rag-preview .f1 { left: 11%; top: 13%; }
+    .rag-preview .f2 { right: 9%; top: 20%; }
+    .rag-preview .f3 { left: 18%; bottom: 13%; }
+    .rag-preview .f4 { right: 14%; bottom: 18%; border-color: var(--accent); }
+    .rag-preview .beam { position: absolute; left: 13%; top: 49%; width: 76%; height: 2px; background: var(--accent); transform: rotate(-9deg); transform-origin: left; box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 65%, transparent); }
+    .rag-preview .node { position: absolute; left: 48%; top: 43%; width: 38px; aspect-ratio: 1; border: 2px solid var(--accent); border-radius: 50%; background: var(--bg); }
     footer { padding: 38px clamp(20px, 6vw, 96px); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 13px; }
     footer a { text-underline-offset: 4px; }
     @media (max-width: 800px) {
@@ -148,7 +156,7 @@
     </section>
     <section class="catalog" aria-labelledby="catalog-title">
       <div class="catalog-inner">
-        <h2 id="catalog-title">Enter the first exhibit.</h2>
+        <h2 id="catalog-title">Explore the exhibits.</h2>
         <a class="exhibit" href="visualizations/llm-training/">
           <div class="exhibit-copy">
             <div>
@@ -161,6 +169,23 @@
           <div class="preview" aria-hidden="true">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
             <span class="preview-label">next token</span>
+          </div>
+        </a>
+        <a class="exhibit" href="visualizations/rag/">
+          <div class="exhibit-copy">
+            <div>
+              <p class="eyebrow">Retrieval systems</p>
+              <h3>How RAG finds the right context</h3>
+              <p>Ask a question and watch an archive become evidence, context, and a cited answer.</p>
+            </div>
+            <span class="open">Open visual story ↗</span>
+          </div>
+          <div class="preview rag-preview" aria-hidden="true">
+            <span class="fragment f1">gallery hours<br>rev. 2025</span>
+            <span class="fragment f2">photo policy<br>approved</span>
+            <span class="fragment f3">accession note<br>1984</span>
+            <span class="fragment f4">cited answer</span>
+            <span class="beam"></span><span class="node"></span>
           </div>
         </a>
       </div>

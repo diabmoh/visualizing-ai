@@ -10,6 +10,12 @@ Follow a common LLM training lifecycle from raw text and tokens through predicti
 
 [Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/llm-training/)
 
+### [How RAG finds the right context](https://diabmoh.github.io/visualizing-ai/visualizations/rag/)
+
+Follow a question through semantic retrieval, context assembly, cited generation, failure modes, and evaluation inside a fictional observatory archive.
+
+[Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/rag/)
+
 ## Why this project exists
 
 AI is often explained with either vague metaphors or dense mathematics. Visualizing AI aims for a useful middle: scientifically grounded explanations that people can understand by watching a system change.
