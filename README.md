@@ -28,6 +28,12 @@ Trace a guided DOCTOR-style conversation through keyword ranking, pattern matchi
 
 [Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/eliza/)
 
+### [How AI agents turn goals into actions](https://diabmoh.github.io/visualizing-ai/visualizations/agents/)
+
+Follow one fictional expedition agent as it chooses tools, adapts to observations, recovers from failure, keeps working state, and pauses before a consequential action.
+
+[Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/agents/)
+
 ## Why this project exists
 
 AI is often explained with either vague metaphors or dense mathematics. Visualizing AI aims for a useful middle: scientifically grounded explanations that people can understand by watching a system change.

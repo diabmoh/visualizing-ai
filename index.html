@@ -148,6 +148,18 @@
     .eliza-preview .rule { position: absolute; left: 18%; top: 39%; width: 70%; min-height: 92px; padding: 15px; border: 2px solid var(--ink); background: var(--surface); font: 10px/1.6 var(--mono); transform: rotate(-1deg); }
     .eliza-preview .beam { position: absolute; left: 54%; top: 6%; width: 3px; height: 88%; background: var(--accent); box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 70%, transparent); }
     .eliza-preview .stamp { position: absolute; right: 8%; top: 47%; padding: 7px; border: 1px solid var(--accent); color: var(--accent); background: var(--bg); font: 10px/1 var(--mono); transform: rotate(5deg); }
+    .agents-preview { background: var(--surface); }
+    .agents-preview::before { content: ""; position: absolute; inset: 0; opacity: .28; background: linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size: 16.66% 16.66%; }
+    .agents-preview .mission-route { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .agents-preview .mission-route path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 7 7; }
+    .agents-preview .mission-node { position: absolute; width: 18px; aspect-ratio: 1; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 10px color-mix(in srgb,var(--accent) 16%,transparent); }
+    .agents-preview .n1 { left: 12%; bottom: 16%; }
+    .agents-preview .n2 { right: 15%; top: 13%; }
+    .agents-preview .route-error { position: absolute; left: 44%; top: 42%; width: 45px; height: 45px; }
+    .agents-preview .route-error::before,.agents-preview .route-error::after { content: ""; position: absolute; left: 22px; width: 2px; height: 45px; background: var(--ink); transform: rotate(45deg); }
+    .agents-preview .route-error::after { transform: rotate(-45deg); }
+    .agents-preview .approval-gate { position: absolute; right: 7%; bottom: 9%; padding: 11px; border: 2px solid var(--accent); background: var(--bg); font: 10px/1.4 var(--mono); transform: rotate(2deg); }
+    .agents-preview .tool-slip { position: absolute; left: 8%; top: 9%; padding: 10px; border: 1px solid var(--line); background: var(--bg); font: 10px/1.4 var(--mono); transform: rotate(-2deg); }
     footer { padding: 38px clamp(20px, 6vw, 96px); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 13px; }
     footer a { text-underline-offset: 4px; }
     @media (max-width: 800px) {
@@ -244,6 +256,21 @@
             <span class="rule">KEY: I FEEL<br>PATTERN: * I FEEL *<br>REPLY: DO YOU OFTEN FEEL (2)?</span>
             <span class="strip s2">DO YOU OFTEN FEEL UNEASY...</span>
             <span class="beam"></span><span class="stamp">RULE 03</span>
+          </div>
+        </a>
+        <a class="exhibit" href="visualizations/agents/">
+          <div class="exhibit-copy">
+            <div>
+              <p class="eyebrow">Agentic systems</p>
+              <h3>How AI agents turn goals into actions</h3>
+              <p>Follow one agent as it uses tools, adapts after failure, carries state forward, and stops for human approval.</p>
+            </div>
+            <span class="open">Open visual story ↗</span>
+          </div>
+          <div class="preview agents-preview" aria-hidden="true">
+            <svg class="mission-route" viewBox="0 0 400 360" preserveAspectRatio="none"><path d="M54 292 C140 250 145 185 195 175 M230 165 C285 145 300 62 340 72"></path></svg>
+            <span class="mission-node n1"></span><span class="mission-node n2"></span><span class="route-error"></span>
+            <span class="tool-slip">OBSERVE<br>92% cloud</span><span class="approval-gate">HUMAN GATE<br>approve $216?</span>
           </div>
         </a>
       </div>
