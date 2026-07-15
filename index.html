@@ -133,6 +133,21 @@
     .embedding-preview .p4 { right: 17%; bottom: 19%; }
     .embedding-preview .route { position: absolute; left: 24%; top: 30%; width: 25%; height: 2px; background: var(--accent); transform: rotate(34deg); transform-origin: left; }
     .embedding-preview .vector-label { position: absolute; right: 9%; bottom: 8%; padding: 10px; border: 1px solid var(--accent); background: var(--accent-soft, var(--bg)); font: 10px/1.3 var(--mono); }
+    .eliza-preview { background: var(--surface); }
+    .eliza-preview::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .24;
+      background: repeating-linear-gradient(0deg, transparent 0 27px, var(--line) 28px);
+    }
+    .eliza-preview .strip { position: absolute; left: 9%; width: 72%; min-height: 46px; padding: 10px 34px 10px 12px; border: 1px solid var(--line); background: var(--bg); font: 10px/1.35 var(--mono); }
+    .eliza-preview .strip::after { content: ""; position: absolute; right: 11px; top: 9px; bottom: 9px; border-right: 2px dotted var(--line); }
+    .eliza-preview .s1 { top: 12%; transform: rotate(-2deg); }
+    .eliza-preview .s2 { right: 8%; bottom: 12%; left: auto; transform: rotate(2deg); }
+    .eliza-preview .rule { position: absolute; left: 18%; top: 39%; width: 70%; min-height: 92px; padding: 15px; border: 2px solid var(--ink); background: var(--surface); font: 10px/1.6 var(--mono); transform: rotate(-1deg); }
+    .eliza-preview .beam { position: absolute; left: 54%; top: 6%; width: 3px; height: 88%; background: var(--accent); box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 70%, transparent); }
+    .eliza-preview .stamp { position: absolute; right: 8%; top: 47%; padding: 7px; border: 1px solid var(--accent); color: var(--accent); background: var(--bg); font: 10px/1 var(--mono); transform: rotate(5deg); }
     footer { padding: 38px clamp(20px, 6vw, 96px); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 13px; }
     footer a { text-underline-offset: 4px; }
     @media (max-width: 800px) {
@@ -213,6 +228,22 @@
             <span class="contour c1"></span><span class="contour c2"></span><span class="contour c3"></span>
             <span class="point p1"></span><span class="point p2"></span><span class="point p3"></span><span class="point p4"></span>
             <span class="route"></span><span class="vector-label">text → [0.42, −0.18, …]</span>
+          </div>
+        </a>
+        <a class="exhibit" href="visualizations/eliza/">
+          <div class="exhibit-copy">
+            <div>
+              <p class="eyebrow">AI history</p>
+              <h3>How ELIZA made a machine seem to listen</h3>
+              <p>Follow one guided conversation and expose the keyword rules, reflected words, and human projection beneath every reply.</p>
+            </div>
+            <span class="open">Open visual story ↗</span>
+          </div>
+          <div class="preview eliza-preview" aria-hidden="true">
+            <span class="strip s1">I FEEL UNEASY WHEN I SPEAK...</span>
+            <span class="rule">KEY: I FEEL<br>PATTERN: * I FEEL *<br>REPLY: DO YOU OFTEN FEEL (2)?</span>
+            <span class="strip s2">DO YOU OFTEN FEEL UNEASY...</span>
+            <span class="beam"></span><span class="stamp">RULE 03</span>
           </div>
         </a>
       </div>

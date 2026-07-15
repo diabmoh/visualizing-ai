@@ -22,6 +22,12 @@ Watch text become coordinates, explore semantic neighborhoods, and learn why vec
 
 [Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/embeddings/)
 
+### [How ELIZA made a machine seem to listen](https://diabmoh.github.io/visualizing-ai/visualizations/eliza/)
+
+Trace a guided DOCTOR-style conversation through keyword ranking, pattern matching, reflected wording, scripted replies, and remembered fragments.
+
+[Open the interactive story →](https://diabmoh.github.io/visualizing-ai/visualizations/eliza/)
+
 ## Why this project exists
 
 AI is often explained with either vague metaphors or dense mathematics. Visualizing AI aims for a useful middle: scientifically grounded explanations that people can understand by watching a system change.
