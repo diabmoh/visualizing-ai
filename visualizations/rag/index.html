@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How RAG finds the right context | Visualizing AI</title>
-  <meta name="description" content="An interactive visual story of retrieval-augmented generation, from documents and embeddings to retrieval, cited answers, and failure modes.">
+  <title>How RAG retrieves nearby meaning | Visualizing AI</title>
+  <meta name="description" content="A simple interactive explanation of embeddings: a question becomes a vector, nearby passages are retrieved, and an answer is grounded in evidence.">
   <meta name="theme-color" content="#141716">
-  <meta property="og:title" content="How RAG finds the right context">
-  <meta property="og:description" content="Ask a question and watch RAG retrieve evidence, build context, and generate a cited answer.">
+  <meta property="og:title" content="How RAG retrieves nearby meaning">
+  <meta property="og:description" content="Watch a question become an embedding, find nearby passages, and ground an answer.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://diabmoh.github.io/visualizing-ai/visualizations/rag/">
   <link rel="canonical" href="https://diabmoh.github.io/visualizing-ai/visualizations/rag/">
@@ -16,8 +16,8 @@
   {
     "@context": "https://schema.org",
     "@type": "LearningResource",
-    "name": "How RAG finds the right context",
-    "description": "An interactive visual explanation of retrieval-augmented generation.",
+    "name": "How RAG retrieves nearby meaning",
+    "description": "An interactive visual explanation of embeddings and retrieval-augmented generation.",
     "educationalLevel": "Beginner",
     "learningResourceType": "Interactive visualization",
     "inLanguage": "en",
@@ -74,7 +74,7 @@
     .nav-title { color: var(--muted); font: 12px/1.2 var(--mono); white-space: nowrap; }
     .hero { min-height: calc(100dvh - 68px); max-width: 1600px; margin: 0 auto; padding: clamp(54px,8vw,118px) clamp(20px,6vw,96px); display: grid; grid-template-columns: minmax(0,1.05fr) minmax(360px,.95fr); align-items: center; gap: clamp(44px,8vw,132px); }
     .eyebrow { margin: 0 0 24px; color: var(--accent); font: 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-    h1 { margin: 0; max-width: 900px; font-size: clamp(54px,8vw,128px); line-height: .84; letter-spacing: -.075em; font-weight: 650; }
+    h1 { margin: 0; max-width: 900px; font-size: clamp(54px,6.5vw,104px); line-height: .9; letter-spacing: -.07em; font-weight: 650; }
     .hero-copy { max-width: 560px; margin: 34px 0 0; color: var(--muted); font-size: clamp(18px,1.7vw,23px); line-height: 1.48; }
     .fiction-note { display: block; margin-top: 16px; color: var(--muted); font: 11px/1.4 var(--mono); }
     .primary-action, .control-button, .query-button { border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; color: var(--ink); cursor: pointer; transition: transform .18s var(--ease),background .18s ease,color .18s ease,border-color .18s ease; }
@@ -83,16 +83,17 @@
     .primary-action:active, .control-button:active, .query-button:active { transform: translateY(1px); }
     .primary-action:focus-visible, .control-button:focus-visible, .query-button:focus-visible, .rail-button:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
     .hero-archive { aspect-ratio: 1; position: relative; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size: 10% 10%; isolation: isolate; }
-    .archive-doc { position: absolute; width: 29%; height: 36%; border: 1px solid var(--line-strong); background: var(--bg); padding: 9%; }
-    .archive-doc::before, .archive-doc::after { content: ""; position: absolute; left: 16%; right: 16%; height: 1px; background: var(--line-strong); }
-    .archive-doc::before { top: 35%; box-shadow: 0 18px 0 var(--line-strong),0 36px 0 var(--line-strong); }
-    .archive-doc::after { top: 77%; right: 35%; }
-    .doc-a { left: 9%; top: 12%; transform: rotate(-7deg); }
-    .doc-b { left: 18%; bottom: 8%; transform: rotate(5deg); }
-    .doc-c { right: 8%; top: 18%; transform: rotate(7deg); }
-    .hero-query { position: absolute; left: 42%; top: 42%; width: 16%; aspect-ratio: 1; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 22px color-mix(in srgb,var(--accent) 15%,transparent); animation: queryPulse 2.8s var(--ease) infinite alternate; }
-    .hero-beam { position: absolute; left: 35%; top: 50%; width: 38%; height: 2px; background: var(--accent); transform: rotate(-18deg); transform-origin: left; animation: beam 2s linear infinite; }
-    .hero-answer { position: absolute; right: 8%; bottom: 10%; width: 34%; padding: 14px; border: 1px solid var(--accent); background: var(--accent-soft); font: 10px/1.4 var(--mono); }
+    .archive-dot { position: absolute; width: 3.2%; aspect-ratio: 1; border-radius: 50%; background: var(--line-strong); }
+    .archive-dot:nth-child(1) { left: 22%; top: 29%; }
+    .archive-dot:nth-child(2) { left: 31%; top: 22%; }
+    .archive-dot:nth-child(3) { left: 28%; top: 39%; }
+    .archive-dot:nth-child(4) { right: 22%; bottom: 23%; }
+    .archive-dot:nth-child(5) { right: 30%; bottom: 31%; }
+    .archive-dot:nth-child(6) { right: 19%; bottom: 37%; }
+    .hero-query { position: absolute; left: 55%; top: 30%; width: 8%; aspect-ratio: 1; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 22px color-mix(in srgb,var(--accent) 15%,transparent); animation: queryPulse 2.8s var(--ease) infinite alternate; }
+    .hero-beam { position: absolute; left: 34%; top: 31.5%; width: 22%; height: 2px; background: var(--accent); transform: rotate(2deg); transform-origin: right; animation: beam 2s linear infinite; }
+    .hero-answer { position: absolute; left: 8%; right: 8%; bottom: 8%; padding: 14px; border-top: 1px solid var(--line-strong); font: 11px/1.4 var(--mono); display: flex; justify-content: space-between; gap: 16px; }
+    .hero-answer strong { color: var(--accent); font-weight: 700; }
     @keyframes queryPulse { to { transform: scale(1.1); opacity: .58; } }
     @keyframes beam { 50% { opacity: .25; } }
     .story { border-top: 1px solid var(--line); }
@@ -215,20 +216,19 @@
 <body>
   <header class="site-nav">
     <a class="brand" href="../../">Visualizing AI</a>
-    <span class="nav-title">How RAG finds the right context</span>
+    <span class="nav-title">How RAG retrieves nearby meaning</span>
   </header>
   <main>
     <section class="hero" aria-labelledby="page-title">
       <div>
         <p class="eyebrow">Retrieval-augmented generation</p>
-        <h1 id="page-title">How RAG gives an LLM a library.</h1>
-        <p class="hero-copy">Ask a question. Watch relevant evidence travel from an archive into a cited answer.</p>
-        <span class="fiction-note">Northstar Observatory and every fact shown are fictional.</span>
-        <button class="primary-action" id="begin-button" type="button">Enter the archive</button>
+        <h1 id="page-title">RAG finds meaning nearby.</h1>
+        <p class="hero-copy">A question becomes an embedding. Nearby passages become evidence for the answer.</p>
+        <button class="primary-action" id="begin-button" type="button">See the search</button>
       </div>
       <div class="hero-archive" aria-hidden="true">
-        <span class="archive-doc doc-a"></span><span class="archive-doc doc-b"></span><span class="archive-doc doc-c"></span>
-        <span class="hero-query"></span><span class="hero-beam"></span><span class="hero-answer">evidence → answer [1]</span>
+        <span class="archive-dot"></span><span class="archive-dot"></span><span class="archive-dot"></span><span class="archive-dot"></span><span class="archive-dot"></span><span class="archive-dot"></span>
+        <span class="hero-query"></span><span class="hero-beam"></span><span class="hero-answer"><span>nearby meaning</span><strong>retrieved</strong></span>
       </div>
     </section>
     <section class="story" id="story" aria-label="RAG chapters">
@@ -319,19 +319,10 @@
     ];
 
     const scenes = [
-      { id:"limits", phase:"The problem", title:"Model memory has limits", body:"A trained model answers from patterns stored in its parameters. It cannot automatically see a newly revised observatory schedule.", idea:"RAG gives the model query-time access to external information without changing its weights.", detail:"Longer context alone does not create a search system. RAG first selects likely evidence, then places that evidence inside the model's context.", label:"Closed model", status:"Knowledge outside", render:renderLimits },
-      { id:"archive", phase:"Ingestion", title:"Build the archive", body:"Schedules, policies, brochures, and collection notes enter a governed knowledge source before anyone asks a question.", idea:"The quality, permissions, and freshness of the source material set the ceiling for the system.", detail:"Production ingestion also handles parsing, access control, document lineage, deletion, updates, and sensitive information. RAG should not retrieve content a user is not allowed to see.", label:"Northstar archive", status:"Fictional documents", render:renderArchive },
-      { id:"chunks", phase:"Preparation", title:"Split documents into chunks", body:"Whole documents are divided into focused passages that can be retrieved independently and still point back to their source.", idea:"Chunks that are too large add noise. Chunks that are too small can lose the meaning around a fact.", detail:"Chunking can follow length, headings, paragraphs, semantic boundaries, or document structure. Some systems add overlap so facts near a boundary retain context.", label:"Document chunking", status:"Illustrative boundaries", render:renderChunks },
-      { id:"embeddings", phase:"Representation", title:"Turn meaning into coordinates", body:"An embedding model converts every chunk into a list of numbers. Similar meanings tend to land near one another in this conceptual space.", idea:"An embedding represents patterns of similarity. It is not a truth score or a readable summary.", detail:"The screen uses two dimensions so we can see it. Real embedding vectors often have hundreds or thousands of dimensions, and distance behavior depends on the model and similarity function.", label:"Embedding space", status:"Illustrative coordinates", render:renderEmbeddings },
-      { id:"index", phase:"Storage", title:"Store the searchable index", body:"Each vector remains linked to its chunk text, document title, date, and freshness state inside a searchable index.", idea:"The index is external memory. Its contents are not copied into the LLM's parameters.", detail:"Vector databases support nearest-neighbor search and metadata. Lexical search, hybrid retrieval, filters, and rerankers are common additions but are not required to understand the core loop.", label:"Vector index", status:"Vectors + metadata", render:renderIndex },
-      { id:"ask", phase:"Query time", title:"Ask a question", body:"Now the learner chooses a question. The documents remain unchanged, but the retrieval path will change with the question.", idea:"RAG begins again for every new query.", detail:"A real system may rewrite a conversational question, include chat history, extract filters, or decide that retrieval is unnecessary. This exhibit sends the selected question directly to dense retrieval.", label:"User query", status:"Choose below", render:renderAsk },
-      { id:"embed-query", phase:"Query representation", title:"Embed the question", body:"The same kind of embedding model converts the question into coordinates that can be compared with the stored chunks.", idea:"Queries and passages must live in compatible representation spaces.", detail:"Dense retrievers are often trained so relevant question-passage pairs become close and irrelevant pairs move apart. Different retrievers can rank the same archive differently.", label:"Query embedding", status:"Selected question", render:renderQueryEmbedding },
-      { id:"retrieve", phase:"Search", title:"Retrieve nearby evidence", body:"The index ranks chunks by similarity to the selected question. The closest text is likely relevant, but similarity does not guarantee correctness.", idea:"Retrieval is a ranking decision, not a fact checker.", detail:"The shown scores are invented. Production systems evaluate retrieval across many questions using metrics such as recall, precision, or ranking quality, often with domain-specific judgments.", label:"Similarity ranking", status:"Illustrative scores", render:renderRetrieve },
-      { id:"context", phase:"Selection", title:"Choose the context", body:"Only a few top passages fit into the evidence window. Source dates and status help the system avoid treating stale text as current truth.", idea:"The cutoff decides which evidence the generator can see.", detail:"More retrieved passages can increase recall but also add distraction, conflicts, and cost. Models may use evidence unevenly depending on its position in a long context.", label:"Evidence window", status:"Top passages", render:renderContext },
-      { id:"prompt", phase:"Augmentation", title:"Build the augmented prompt", body:"Instructions, the user's question, and the selected source passages are assembled into one input for the language model.", idea:"RAG changes the input at inference time. It does not retrain the model.", detail:"Prompt instructions can ask the model to cite sources, admit missing evidence, prefer current documents, and avoid unsupported claims. They reduce risk but cannot enforce perfect behavior.", label:"Augmented prompt", status:"Question + evidence", render:renderPrompt },
-      { id:"generate", phase:"Generation", title:"Generate with citations", body:"The language model writes an answer using both its learned language ability and the retrieved evidence supplied in the prompt.", idea:"A citation is useful only when the cited passage actually supports the claim.", detail:"Grounded generation can still paraphrase incorrectly, combine incompatible passages, or add unsupported detail. Claim-level source checking is stronger than simply attaching a source list.", label:"Cited answer", status:"Evidence connected", render:renderGenerate },
-      { id:"failures", phase:"Failure modes", title:"See where RAG fails", body:"RAG can fail before generation, during evidence selection, or while the model writes the answer. Retrieval alone does not guarantee accuracy.", idea:"Diagnose the stage that failed before choosing a fix.", detail:"A missed chunk may need better queries or retrieval. A stale conflict needs freshness logic or governance. Unsupported generation needs grounding checks, prompts, model changes, or abstention.", label:"Three failure lanes", status:"Miss • stale • unsupported", render:renderFailures },
-      { id:"evaluate", phase:"System quality", title:"Evaluate the whole system", body:"Useful RAG evaluation separates retrieval quality, faithfulness to evidence, and whether the final answer actually helps the user.", idea:"Training builds parameters. RAG retrieves context. Inference generates the answer.", detail:"No single score proves a RAG system is safe or correct. Evaluation should include representative queries, adversarial cases, human review, access checks, latency, and ongoing monitoring.", label:"Evaluation loop", status:"Retrieve • ground • answer", render:renderEvaluate }
+      { id:"embeddings", phase:"Embed the knowledge", title:"Meaning becomes location", body:"Each passage is converted into an embedding: a list of numbers that places similar meanings near one another.", idea:"One chunk becomes one vector. The vector keeps a link back to the original text.", detail:"We draw the space in two dimensions so it is visible. Real embeddings usually have many more dimensions, and the coordinates themselves are not readable facts.", label:"Knowledge embeddings", status:"Chunks → vectors", render:renderEmbeddings },
+      { id:"embed-query", phase:"Embed the question", title:"The question becomes a vector too", body:"Choose a question. The same embedding model places it inside the same meaning space as the stored passages.", idea:"A query and a passage can be compared because both are represented as compatible vectors.", detail:"Dense retrievers are trained so relevant question-passage pairs tend to land close together. Different embedding models can arrange the same content differently.", label:"Query embedding", status:"Choose a question", render:renderQueryEmbedding },
+      { id:"retrieve", phase:"Retrieve", title:"Nearby passages rise to the top", body:"The system measures which chunk vectors are closest to the query vector and retrieves the nearest few.", idea:"Closer usually means more similar in meaning. It does not guarantee that the passage is correct or current.", detail:"This is often called top-k retrieval. The distances and positions shown here are invented for teaching; production systems evaluate retrieval over many representative questions.", label:"Nearest-neighbor search", status:"Top 3 retrieved", render:renderRetrieve },
+      { id:"generate", phase:"Ground the answer", title:"Retrieved text becomes context", body:"The selected passages are placed beside the question. The language model answers with that evidence in view.", idea:"RAG changes what the model can read now. It does not add the documents to the model's trained parameters.", detail:"Grounding reduces unsupported answers but does not eliminate them. Good systems retain source links, handle stale or missing evidence, and allow the model to abstain.", label:"Grounded generation", status:"Evidence → answer", render:renderGenerate }
     ];
 
     const refs = {
@@ -375,8 +366,13 @@
     }
 
     function renderEmbeddings() {
-      const dots = chunks.map((c,i) => `<g class="reveal" style="--i:${i}"><circle cx="${c.x}" cy="${c.y}" r="${c.state==="stale"?14:10}" class="${c.state==="stale"?"warning-soft":"panel"}"></circle><text x="${c.x+17}" y="${c.y+4}" class="tiny mono ${c.state==="stale"?"warning-text":"muted-text"}">${c.title}</text></g>`).join("");
-      return svgWrap("Embedding space", "Fictional document chunks appear as points arranged by semantic similarity", `<path d="M90 530 H830 M90 530 V80" class="line"></path><text x="830" y="558" text-anchor="end" class="tiny mono muted-text">CONCEPTUAL DIMENSION A</text><text x="62" y="90" class="tiny mono muted-text" transform="rotate(-90 62 90)">CONCEPTUAL DIMENSION B</text>${dots}<path d="M170 575 H730" class="accent-line flow-line" marker-end="url(#arrow-accent)"></path><text x="450" y="615" text-anchor="middle" class="small muted-text">Nearby can mean similar. It does not mean true.</text>`);
+      const examples = [chunks[0], chunks[2], chunks[4]];
+      const rows = examples.map((c,i) => {
+        const y=125+i*150;
+        return `<g class="reveal" style="--i:${i}"><rect x="48" y="${y}" width="225" height="104" class="panel" rx="6"></rect><text x="66" y="${y+30}" class="tiny mono muted-text">CHUNK ${i+1}</text><foreignObject x="66" y="${y+43}" width="188" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="font:13px/1.35 var(--display);color:var(--ink)">${c.text}</div></foreignObject><path d="M273 ${y+52} H338" class="accent-line flow-line" marker-end="url(#arrow-accent)"></path><text x="305" y="${y+38}" text-anchor="middle" class="tiny mono accent-text">EMBED</text><rect x="352" y="${y+22}" width="155" height="60" class="soft-panel" rx="6"></rect><text x="429" y="${y+58}" text-anchor="middle" class="small mono">[${(c.x/900).toFixed(2)}, ${(c.y/650).toFixed(2)}, …]</text></g>`;
+      }).join("");
+      const dots = chunks.map((c,i) => `<g class="reveal" style="--i:${i+3}"><circle cx="${530+c.x*.36}" cy="${75+c.y*.72}" r="${c.state==="stale"?10:8}" class="${c.state==="stale"?"warning-soft":"panel"}"></circle></g>`).join("");
+      return svgWrap("Chunks become embeddings", "Three example passages become numeric vectors and appear as points in a shared meaning space", `${rows}<g class="reveal" style="--i:3"><rect x="530" y="72" width="340" height="430" class="soft-panel" rx="6"></rect><text x="552" y="104" class="tiny mono muted-text">MEANING SPACE</text>${dots}<text x="700" y="540" text-anchor="middle" class="small muted-text">Similar passages gather near one another.</text></g><text x="450" y="603" text-anchor="middle" class="large">One chunk → one vector → one location</text>`);
     }
 
     function renderIndex() {
@@ -391,14 +387,17 @@
 
     function renderQueryEmbedding() {
       const q=selectedCase(),[qx,qy]=q.queryPoint;
-      const dots=chunks.map(c=>`<circle cx="${c.x}" cy="${c.y}" r="8" fill="var(--line-strong)" opacity=".45"></circle>`).join("");
-      return svgWrap("Embed the question", `The selected question becomes a point near related chunks`, `<path d="M90 530 H830 M90 530 V80" class="line"></path>${dots}<g class="reveal"><rect x="75" y="555" width="510" height="52" class="panel" rx="6"></rect><text x="95" y="587" class="small">${q.question}</text></g><path d="M600 580 Q${qx-70} ${qy+90} ${qx} ${qy}" class="accent-line flow-line" marker-end="url(#arrow-accent)"></path><circle cx="${qx}" cy="${qy}" r="25" class="accent-soft pulse"></circle><text x="${qx}" y="${qy+5}" text-anchor="middle" class="label">Q</text><text x="${qx+34}" y="${qy-21}" class="tiny mono accent-text">QUERY VECTOR</text>`);
+      const dots=chunks.map(c=>`<circle cx="${c.x}" cy="${c.y}" r="9" fill="var(--line-strong)" opacity=".46"></circle>`).join("");
+      return svgWrap("Embed the question", `The selected question becomes a vector and lands near passages with related meaning`, `<path d="M70 500 H840 M70 500 V64" class="line"></path>${dots}<g class="reveal"><rect x="70" y="535" width="515" height="70" class="panel" rx="6"></rect><text x="90" y="560" class="tiny mono accent-text">QUESTION</text><text x="90" y="588" class="small">${q.question}</text></g><g class="reveal" style="--i:2"><rect x="610" y="540" width="230" height="58" class="accent-soft" rx="6"></rect><text x="725" y="575" text-anchor="middle" class="small mono">[${(qx/900).toFixed(2)}, ${(qy/650).toFixed(2)}, …]</text></g><path d="M725 540 Q${qx+70} ${qy+95} ${qx} ${qy}" class="accent-line flow-line" marker-end="url(#arrow-accent)"></path><circle cx="${qx}" cy="${qy}" r="31" class="accent-soft pulse"></circle><text x="${qx}" y="${qy+6}" text-anchor="middle" class="label">Q</text><text x="${qx+42}" y="${qy-25}" class="tiny mono accent-text">QUERY EMBEDDING</text><text x="450" y="35" text-anchor="middle" class="small muted-text">The query joins the same space as the knowledge.</text>`);
     }
 
     function renderRetrieve() {
-      const ranked=rankedChunks().slice(0,6);
-      const rows=ranked.map((c,i)=>{ const score=c.scores[currentQuery],y=105+i*72; return `<g class="reveal" style="--i:${i}"><text x="72" y="${y+34}" class="large mono">${i+1}</text><text x="122" y="${y+25}" class="label">${c.title}</text><text x="122" y="${y+46}" class="tiny mono ${c.state==="stale"?"warning-text":"muted-text"}">${c.date} • ${c.state}</text><rect x="450" y="${y+13}" width="300" height="25" class="soft-panel" rx="3"></rect><rect x="450" y="${y+13}" width="${score*300}" height="25" class="${i===0?"accent-panel":c.state==="stale"?"warning-soft":"ink-fill"}" rx="3"></rect><text x="770" y="${y+32}" class="small mono">${score.toFixed(2)}</text></g>`;}).join("");
-      return svgWrap("Similarity ranking", `Chunks ranked for ${selectedCase().question}`, `<text x="72" y="70" class="tiny mono muted-text">RANKED FOR: ${selectedCase().short.toUpperCase()}</text>${rows}<text x="450" y="578" text-anchor="middle" class="tiny mono muted-text">ILLUSTRATIVE SIMILARITY SCORES</text>`);
+      const q=selectedCase(),[qx,qy]=q.queryPoint,ranked=rankedChunks(),top=ranked.slice(0,3);
+      const topIds=new Set(top.map(c=>c.id));
+      const dots=chunks.map((c,i)=>`<g class="reveal" style="--i:${i}"><circle cx="${c.x}" cy="${c.y}" r="${topIds.has(c.id)?15:8}" class="${topIds.has(c.id)?(c.state==="stale"?"warning-soft":"positive-soft"):"soft-panel"}"></circle><text x="${c.x+19}" y="${c.y+4}" class="tiny mono ${topIds.has(c.id)?(c.state==="stale"?"warning-text":"positive-text"):"muted-text"}">${c.title}</text></g>`).join("");
+      const lines=top.map((c,i)=>`<path d="M${qx} ${qy} L${c.x} ${c.y}" class="${i===0?"accent-line":"positive-line"}" opacity="${1-i*.2}" stroke-dasharray="${i===0?"0":"7 8"}"></path>`).join("");
+      const cards=top.map((c,i)=>`<g class="reveal" style="--i:${i+4}"><rect x="${70+i*265}" y="528" width="235" height="82" class="${c.state==="stale"?"warning-soft":"panel"}" rx="6"></rect><text x="${88+i*265}" y="556" class="tiny mono ${c.state==="stale"?"warning-text":"accent-text"}">TOP ${i+1} • ${c.scores[currentQuery].toFixed(2)}</text><text x="${88+i*265}" y="584" class="label">${c.title}</text></g>`).join("");
+      return svgWrap("Retrieve nearby passages", `Lines connect the query to the three nearest fictional passage embeddings`, `<path d="M65 485 H835 M65 485 V55" class="line"></path>${lines}${dots}<circle cx="${qx}" cy="${qy}" r="44" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".35" class="pulse"></circle><circle cx="${qx}" cy="${qy}" r="24" class="accent-panel"></circle><text x="${qx}" y="${qy+5}" text-anchor="middle" class="label" fill="var(--accent-ink)">Q</text>${cards}`);
     }
 
     function renderContext() {
@@ -435,9 +434,9 @@
     function setState(index,query,push=true) {
       currentIndex=Math.max(0,Math.min(scenes.length-1,index)); currentQuery=validQueries.includes(query)?query:"hours";
       const scene=scenes[currentIndex];
-      refs.phase.textContent=scene.phase; refs.count.textContent=`${currentIndex+1} / ${scenes.length}`; refs.title.textContent=scene.title; refs.body.textContent=scene.body; refs.idea.innerHTML=`<strong>Keep this in mind:</strong> ${scene.idea}`; refs.detail.textContent=scene.detail; refs.details.open=false; refs.label.textContent=scene.label; refs.status.textContent=scene.status; refs.stage.innerHTML=scene.render();
+      refs.phase.textContent=scene.phase; refs.count.textContent=`${currentIndex+1} / ${scenes.length}`; refs.title.textContent=scene.title; refs.body.textContent=scene.body; refs.idea.innerHTML=`<strong>Core idea:</strong> ${scene.idea}`; refs.detail.textContent=scene.detail; refs.details.open=false; refs.label.textContent=scene.label; refs.status.textContent=scene.status; refs.stage.innerHTML=scene.render();
       refs.previous.disabled=currentIndex===0; refs.next.disabled=currentIndex===scenes.length-1; refs.next.textContent=currentIndex===scenes.length-1?"Story complete":"Next";
-      refs.queries.hidden=currentIndex<5;
+      refs.queries.hidden=currentIndex===0;
       refs.queries.querySelectorAll(".query-button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.query===currentQuery)));
       refs.rail.querySelectorAll(".rail-button").forEach((b,i)=>{ if(i===currentIndex)b.setAttribute("aria-current","step"); else b.removeAttribute("aria-current"); });
       if(push) history.pushState({scene:scene.id,query:currentQuery},"",`#${scene.id}/${currentQuery}`);
